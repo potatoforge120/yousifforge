@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<!--
+  =============================================================================
+  contact.html — CONTACT PAGE
+  -----------------------------------------------------------------------------
+  Same shell as index.html. Two parts:
+    1. Social links using Nerd Font icon glyphs.
+    2. A contact form using NATIVE WebTUI input styling. On submit, js/main.js
+       builds a mailto: link (see handleContact / MY_EMAIL in js/main.js).
+       To use a real backend instead, swap that function for a fetch() POST.
+  =============================================================================
+-->
+<html lang="en" dir="ltr" data-webtui-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Forge — Contact</title>
+  <link rel="stylesheet" href="vendor/full.css" />
+  <link rel="stylesheet" href="vendor/theme-nord.css" />
+  <link rel="stylesheet" href="vendor/theme-catppuccin.css" />
+  <link rel="stylesheet" href="vendor/plugin-nf.css" />
+  <link rel="stylesheet" href="css/style.css" />
+  <script src="js/main.js" defer></script>
+</head>
+<body>
+
+  <button id="nav-toggle" class="nav-toggle" is-="button" box-="square" aria-label="Toggle navigation">
+    <span class="nf">&#xf0c9;</span><span class="nav-toggle__label" data-i18n="ui.menu">Menu</span>
+  </button>
+
+  <div class="app">
+
+    <!-- ===== SIDEBAR (identical to index.html; "Contact" is active) ===== -->
+    <aside class="sidebar">
+      <div class="brand">
+        <span class="accent">&#x276F;</span> yousif<span class="accent">@</span>forge
+      </div>
+
+      <nav aria-label="Primary">
+        <div class="tree__group">
+          <div class="tree__folder">
+            <span>&#x25BC;</span><span class="nf">&#xf07c;</span><span data-i18n="nav.pages">pages</span>
+          </div>
+          <ul class="tree">
+            <li class="tree__item"><span class="tree__branch">├ </span>
+              <a class="tree__link" href="index.html"><span class="nf">&#xf015;</span><span data-i18n="nav.home">Home</span></a></li>
+            <li class="tree__item"><span class="tree__branch">├ </span>
+              <a class="tree__link" href="projects.html"><span class="nf">&#xf121;</span><span data-i18n="nav.projects">Projects</span></a></li>
+            <li class="tree__item"><span class="tree__branch">├ </span>
+              <a class="tree__link" href="blog.html"><span class="nf">&#xf02d;</span><span data-i18n="nav.blog">Blog</span></a></li>
+            <li class="tree__item"><span class="tree__branch">└ </span>
+              <a class="tree__link" href="contact.html" aria-current="page"><span class="nf">&#xf0e0;</span><span data-i18n="nav.contact">Contact</span></a></li>
+          </ul>
+        </div>
+
+        <div class="tree__group">
+          <div class="tree__folder">
+            <span>&#x25BC;</span><span class="nf">&#xf0c1;</span><span data-i18n="nav.connect">connect</span>
+          </div>
+          <ul class="tree">
+            <li class="tree__item"><span class="tree__branch">├ </span>
+              <a class="tree__link" href="https://github.com/potatoforge120" target="_blank" rel="noopener"><span class="nf">&#xf09b;</span>GitHub</a></li>
+            <li class="tree__item"><span class="tree__branch">├ </span>
+              <a class="tree__link" href="https://discord.com/users/791784297321332747" target="_blank" rel="noopener"><span class="nf">&#xf066f;</span>Discord</a></li>
+            <li class="tree__item"><span class="tree__branch">└ </span>
+              <a class="tree__link" href="mailto:greetings.forge@proton.me"><span class="nf">&#xf0e0;</span>Email</a></li>
+          </ul>
+        </div>
+      </nav>
+
+      <div class="toolbar">
+        <div class="theme-switch">
+          <button id="theme-trigger" is-="button" box-="square" aria-haspopup="true">
+            <span class="nf">&#xf0710;</span><span data-i18n="ui.theme">Theme</span></button>
+          <div class="theme-switch__menu" role="menu">
+            <button data-theme="catppuccin-mocha">Catppuccin Mocha</button>
+            <button data-theme="nord">Nord</button>
+            <button data-theme="dark">Dark</button>
+            <button data-theme="light">Light</button>
+          </div>
+        </div>
+        <!-- LANGUAGE SWITCH — a WebTUI switch (is-="switch"): OFF = English, ON = Arabic.
+             Driven by js/main.js (change event + localStorage). -->
+        <label class="lang-switch" title="Switch language" aria-label="Switch language">
+          <span class="nf">&#xf05ca;</span>
+          <span class="lang-switch__side lang-switch__side--en">EN</span>
+          <input type="checkbox" id="lang-toggle" is-="switch" />
+          <span class="lang-switch__side lang-switch__side--ar">عربي</span>
+        </label>
+      </div>
+
+
+    </aside>
+
+
+    <!-- ===== MAIN CONTENT — CONTACT ===== -->
+    <main class="main">
+      <header class="page-header">
+        <p style="color:var(--foreground2)"><span data-i18n="contact.crumb">~/contact</span></p>
+        <h1 data-i18n="contact.title">Contact</h1>
+        <p data-i18n="contact.intro">Find me on these platforms, or send a message straight from the form below.</p>
+      </header>
+
+      <!-- SOCIAL LINKS PANEL (Nerd Font icons + labels) -->
+      <section box-="square" shear-="top" class="stack">
+        <div class="box-title"><span class="nf">&#xf0c1;</span><span data-i18n="contact.socialsTitle">Elsewhere</span></div>
+        <!-- Social links as COLOURED, bordered WebTUI buttons. Each uses
+             box-="round" for the border and a variant-="hl-*" colour (defined
+             in css/style.css). &#xf16d;=Instagram, &#xf2c6;=Telegram. -->
+        <div class="cluster" style="gap:1ch">
+          <a is-="button" box-="round" variant-="hl-purple" href="https://github.com/potatoforge120" target="_blank" rel="noopener"><span class="nf">&#xf09b;</span>GitHub</a>
+          <a is-="button" box-="round" variant-="hl-blue" href="https://discord.com/users/791784297321332747" target="_blank" rel="noopener"><span class="nf">&#xf066f;</span>Discord</a>
+          <a is-="button" box-="round" variant-="hl-red" href="mailto:greetings.forge@proton.me"><span class="nf">&#xf0e0;</span>Email</a>
+          <!-- PHONE — Call (tel:) + WhatsApp (wa.me). Swap the number in BOTH links:
+               • tel: keeps the leading + and may contain spaces.
+               • wa.me needs the FULL international number with NO +, spaces or dashes
+                 (e.g. +964 771 234 5678  ->  9647712345678). -->
+          <a is-="button" box-="round" variant-="hl-green" href="tel:+9647712488377"><span class="nf">&#xf095;</span>++964&nbsp;771&nbsp;248&nbsp;8377</a>
+          <a is-="button" box-="round" variant-="hl-green" href="https://wa.me/9647712488377" target="_blank" rel="noopener"><span class="nf">&#xf232;</span>WhatsApp</a>
+          <a is-="button" box-="round" variant-="hl-pink" href="https://instagram.com/ysf.alnu" target="_blank" rel="noopener"><span class="nf">&#xf16d;</span>Instagram</a>
+          <a is-="button" box-="round" variant-="hl-cyan" href="https://t.me/ysf_alnu" target="_blank" rel="noopener"><span class="nf">&#xf2c6;</span>Telegram</a>
+          <a is-="button" box-="round" variant-="hl-green" href="#" target="_blank" rel="noopener"><span class="nf">&#xf0ac;</span>Website</a>
+        </div>
+      </section>
+
+      <!-- CONTACT FORM — native WebTUI input/textarea styling; each control is
+           wrapped in a boxed <label> for a terminal border. data-i18n +
+           data-i18n-attr translate the placeholder text. -->
+      <section box-="square" shear-="top" class="stack">
+        <div class="box-title"><span class="nf">&#xf0e0;</span><span data-i18n="contact.formTitle">Send a message</span></div>
+
+        <form id="contact-form" class="form" novalidate>
+          <!-- Name -->
+          <div class="field">
+            <span data-i18n="contact.name">Name</span>
+            <label box-="square">
+              <input type="text" name="name" required
+                     placeholder="Your name"
+                     data-i18n="contact.namePh" data-i18n-attr="placeholder" />
+            </label>
+          </div>
+
+          <!-- Email -->
+          <div class="field">
+            <span data-i18n="contact.email">Email</span>
+            <label box-="square">
+              <input type="email" name="email" required
+                     placeholder="greetings.forge@proton.me"
+                     data-i18n="contact.emailPh" data-i18n-attr="placeholder" />
+            </label>
+          </div>
+
+          <!-- Message -->
+          <div class="field">
+            <span data-i18n="contact.msg">Message</span>
+            <label box-="square">
+              <textarea name="message" rows="5" required
+                        placeholder="say hi to me…"
+                        data-i18n="contact.msgPh" data-i18n-attr="placeholder"></textarea>
+            </label>
+          </div>
+
+          <!-- Submit -->
+          <button type="submit" is-="button" box-="round" variant-="accent">
+            <span class="nf">&#xf1d8;</span><span data-i18n="contact.send">Send</span>
+          </button>
+          <p style="color:var(--foreground2); margin-top:.75rem">
+            <span data-i18n="contact.note">Submitting opens your email client with the message pre-filled.</span>
+          </p>
+        </form>
+      </section>
+
+      <!-- FOOTER with quick contact links (same as the other pages). -->
+      <footer class="site-footer">
+        <hr is-="separator" />
+        <p>
+          <span data-i18n="footer.reach">Reach me</span>:
+          <a href="mailto:greetings.forge@proton.me"><span class="nf">&#xf0e0;</span>&nbsp;Email</a>
+          &nbsp;·&nbsp;
+          <a href="tel:+9647712488377"><span class="nf">&#xf095;</span>&nbsp;+964&nbsp;771&nbsp;248&nbsp;8377</a>
+          &nbsp;·&nbsp;
+          <a href="https://wa.me/9647712488377" target="_blank" rel="noopener"><span class="nf">&#xf232;</span>&nbsp;WhatsApp</a>
+        </p>
+      </footer>
+
+    </main>
+  </div>
+</body>
+</html>

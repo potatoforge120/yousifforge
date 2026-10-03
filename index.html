@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<!--
+  =============================================================================
+  index.html — HOME PAGE
+  -----------------------------------------------------------------------------
+  Terminal-styled personal portfolio built with the WebTUI CSS library.
+
+  HOW THE PAGES ARE STRUCTURED (read once — applies to all four pages):
+    - <head> links the WebTUI vendor CSS, the theme plugins, the Nerd Font
+      plugin, and finally our own css/style.css.
+    - <body> = a persistent .sidebar (directory-tree nav + theme/language
+      toggles) plus a .main content column.
+    - The sidebar markup is DUPLICATED on every page so navigation works even
+      with JavaScript off. Keep the four copies in sync — the ONLY differences
+      between pages are (a) which .tree__link has aria-current="page" and
+      (b) the .main content.
+    - All dynamic behaviour (theme, language, mobile nav, contact form) lives in
+      the shared js/main.js.
+
+  ICONS: rendered with HTML numeric entities (e.g. &#xf015;) inside
+  <span class="nf">…</span>; the .nf class forces the local Symbols Nerd Font.
+
+  lang="en" / dir="ltr" here are DEFAULTS; js/main.js overrides them from
+  localStorage on load (Arabic sets lang="ar" dir="rtl").
+  =============================================================================
+-->
+<html lang="en" dir="ltr" data-webtui-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Forge — Home</title>
+
+  <!-- WEBTUI STYLESHEETS (order matters) --------------------------------------
+       1. full.css              = @webtui/css base + utils + components bundle.
+       2. theme-nord.css        = Nord theme plugin.
+       3. theme-catppuccin.css  = Catppuccin plugin (Mocha variant used).
+       4. plugin-nf.css         = Nerd Font plugin (declares local Symbols font).
+       5. style.css             = OUR custom layer (fonts, layout, accents, RTL).
+       Everything uses CSS @layer, so style.css being last lets it fine-tune. -->
+  <link rel="stylesheet" href="vendor/full.css" />
+  <link rel="stylesheet" href="vendor/theme-nord.css" />
+  <link rel="stylesheet" href="vendor/theme-catppuccin.css" />
+  <link rel="stylesheet" href="vendor/plugin-nf.css" />
+  <link rel="stylesheet" href="css/style.css" />
+
+  <script src="js/main.js" defer></script>
+</head>
+<body>
+
+  <!-- MOBILE NAV TOGGLE (hidden on desktop via CSS) — &#xf0c9; = bars icon -->
+  <button id="nav-toggle" class="nav-toggle" is-="button" box-="square" aria-label="Toggle navigation">
+    <span class="nf">&#xf0c9;</span><span class="nav-toggle__label" data-i18n="ui.menu">Menu</span>
+  </button>
+
+  <div class="app">
+
+    <!-- ===================================================================== -->
+    <!-- SIDEBAR  (identical on every page — keep in sync!)                     -->
+    <!-- ===================================================================== -->
+   <aside class="sidebar">
+      <div class="brand">
+        <span class="accent">&#x276F;</span> yousif<span class="accent">@</span>forge
+         ::after
+      </div>
+
+      <nav aria-label="Primary">
+        <div class="tree__group">
+          <div class="tree__folder">
+            <span>&#x25BC;</span><span class="nf">&#xf07c;</span><span data-i18n="nav.pages">pages</span>
+          </div>
+          <ul class="tree">
+            <li class="tree__item"><span class="tree__branch">├ </span>
+              <a class="tree__link" href="index.html" aria-current="page"><span class="nf">&#xf015;</span><span data-i18n="nav.home">Home</span></a></li>
+            <li class="tree__item"><span class="tree__branch">├ </span>
+              <a class="tree__link" href="projects.html"><span class="nf">&#xf121;</span><span data-i18n="nav.projects">Projects</span></a></li>
+            <li class="tree__item"><span class="tree__branch">├ </span>
+              <a class="tree__link" href="blog.html"><span class="nf">&#xf02d;</span><span data-i18n="nav.blog">Blog</span></a></li>
+            <li class="tree__item"><span class="tree__branch">└ </span>
+              <a class="tree__link" href="contact.html" ><span class="nf">&#xf0e0;</span><span data-i18n="nav.contact">Contact</span></a></li>
+          </ul>
+        </div>
+
+        <div class="tree__group">
+          <div class="tree__folder">
+            <span>&#x25BC;</span><span class="nf">&#xf0c1;</span><span data-i18n="nav.connect">connect</span>
+          </div>
+          <ul class="tree">
+            <li class="tree__item"><span class="tree__branch">├ </span>
+              <a class="tree__link" href="https://github.com/potatoforge120" target="_blank" rel="noopener"><span class="nf">&#xf09b;</span>GitHub</a></li>
+            <li class="tree__item"><span class="tree__branch">├ </span>
+              <a class="tree__link" href="https://discord.com/users/791784297321332747" target="_blank" rel="noopener"><span class="nf">&#xf066f;</span>Discord</a></li>
+            <li class="tree__item"><span class="tree__branch">└ </span>
+              <a class="tree__link" href="mailto:greetings.forge@proton.me"><span class="nf">&#xf0e0;</span>Email</a></li>
+          </ul>
+        </div>
+      </nav>
+
+      <div class="toolbar">
+        <div class="theme-switch">
+          <button id="theme-trigger" is-="button" box-="square" aria-haspopup="true">
+            <span class="nf">&#xf0710;</span><span data-i18n="ui.theme">Theme</span></button>
+          <div class="theme-switch__menu" role="menu">
+            <button data-theme="catppuccin-mocha">Catppuccin Mocha</button>
+            <button data-theme="nord">Nord</button>
+            <button data-theme="dark">Dark</button>
+            <button data-theme="light">Light</button>
+          </div>
+        </div>
+        <!-- LANGUAGE SWITCH — a WebTUI switch (is-="switch"): OFF = English, ON = Arabic.
+             Driven by js/main.js (change event + localStorage). -->
+        <label class="lang-switch" title="Switch language" aria-label="Switch language">
+          <span class="nf">&#xf05ca;</span>
+          <span class="lang-switch__side lang-switch__side--en">EN</span>
+          <input type="checkbox" id="lang-toggle" is-="switch" />
+          <span class="lang-switch__side lang-switch__side--ar">عربي</span>
+        </label>
+      </div>
+
+      
+    </aside>
+
+
+
+    <!-- ===================================================================== -->
+    <!-- MAIN CONTENT — HOME                                                    -->
+    <!-- ===================================================================== -->
+    <main class="main">
+
+      <header class="page-header">
+        <p style="color:var(--foreground2)"><span data-i18n="home.crumb">~/introduction</span></p>
+        <h1 data-i18n="home.title">Introduction</h1>
+      </header>
+
+      <!-- INTRO PANEL — WebTUI box; shear-="top" lets .box-title sit ON the border -->
+      <section box-="square" shear-="top" class="stack">
+        <div class="box-title"><span class="nf">&#xf007;</span><span data-i18n="home.hello">Hi, I'm</span></div>
+        <h2 data-i18n="home.name">Yousif Mohammed Al-Nuaimi 3</h2>
+        <!-- A wrapping highlight (WebTUI <mark>) — badges are nowrap, so we use
+             a mark for this longer line so it never overflows the panel. -->
+        <p><mark is-="mark" variant-="accent" data-i18n="home.tagline">Engineering student • terminal enthusiast • builder of small useful things</mark></p>
+        <p data-i18n="home.intro">
+          I know a little bit about a lot of things.
+           Curiosity and motivation are my main engines.
+            I learn by doing, and I build whatever catches my interest. Mostly, that means tinkering with Linux and random tech as a hobby. Because the command line is just cooler. Most of my work lives in the terminal, and this site is styled to feel like it too. Welcome to my workspace.
+
+        </p>
+      </section>
+
+      <!-- ACADEMIC LEVEL -->
+      <section box-="square" shear-="top" class="stack">
+        <div class="box-title"><span class="nf">&#xf02d;</span><span data-i18n="home.eduTitle">Academic Level</span></div>
+        <p data-i18n="home.edu">
+          I am a student studying Smart Manufacturing Engineering at the
+          University of Technology in Baghdad.
+        </p>
+      </section>
+
+      <!-- WORK / EMPLOYMENT -------------------------------------------------
+           The company NAME is a link to the company website. To customise:
+             1. Replace the href with the real company URL.
+             2. Replace the visible company name text.
+             3. Edit the role wording in the "home.workRole" i18n entry
+                (js/main.js) — the {company} placeholder is swapped for the
+                linked name below, so keep the two <span>s around the link. -->
+      <section box-="square" shear-="top" class="stack">
+        <div class="box-title"><span class="nf">&#xf0b1;</span><span data-i18n="home.workTitle">Where I Work</span></div>
+        <p>
+          <!-- Leading role text (before the company link) -->
+          <span data-i18n="home.workRolePre">Embedded developer at</span>
+          <!-- COMPANY LINK — swap href + name for the real ones -->
+          <a href="https://company-website.example" target="_blank" rel="noopener">Techworld&nbsp;</a>
+        </p>
+      </section>
+
+      <!-- SKILLS & KNOWLEDGE — colourful highlight badges (the "Showcase" look).
+           Each technology is a WebTUI badge with our accent variant. -->
+      <section box-="square" shear-="top" class="stack">
+        <div class="box-title"><span class="nf">&#xf013;</span><span data-i18n="home.skillsTitle">Skills &amp; Knowledge</span></div>
+        <p data-i18n="home.skillsIntro">The languages, tools and hardware I work with:</p>
+        <!-- Multi-coloured highlight badges. The variant-="hl-*" colours are
+             defined in css/style.css and stay readable on every theme. Change a
+             colour by editing its variant-, or add new ones in the CSS. -->
+        <div class="cluster">
+          <span is-="badge" variant-="hl-blue"><span class="nf">&#xf121;</span>C++</span>
+          <span is-="badge" variant-="hl-purple"><span class="nf">&#xf121;</span>C#</span>
+          <span is-="badge" variant-="hl-orange"><span class="nf">&#xf0ac;</span>HTML-CSS</span>
+          <span is-="badge" variant-="hl-cyan"><span class="nf">&#xf17c;</span>Linux</span>
+          <!-- <span is-="badge" variant-="hl-green"><span class="nf">&#xf17c;</span>Sway / Niri</span> -->
+        
+          <!-- <span is-="badge" variant-="hl-yellow"><span class="nf">&#xf013;</span>CMake</span> -->
+          <span is-="badge" variant-="hl-red"><span class="nf">&#xf013;</span>Embedded Hardware</span>
+          <span is-="badge" variant-="hl-blue"><span class="nf">&#xf013;</span>SolidWorks</span>
+          <!-- <span is-="badge" variant-="hl-cyan"><span class="nf">&#xf013;</span>FreeCAD</span> -->
+          <!-- <span is-="badge" variant-="hl-orange"><span class="nf">&#xf013;</span>AutoCAD</span> -->
+          <!-- <span is-="badge" variant-="hl-green"><span class="nf">&#xf121;</span>Neovim</span>    -->
+
+            </div>
+      </section>
+
+      <!-- CURRENT vs FUTURE LEARNING -->
+      <div class="grid-2">
+        <section box-="square" shear-="top" class="stack">
+          <div class="box-title"><span class="nf">&#xf040;</span><span data-i18n="home.nowTitle">Currently Learning</span></div>
+          <p data-i18n="home.now">
+            Right now I'm deepening my C++  and
+            getting comfortable with embedded workflows on the ESP32.
+          </p>
+        </section>
+        <section box-="square" shear-="top" class="stack">
+          <div class="box-title"><span class="nf">&#xf121;</span><span data-i18n="home.nextTitle">Learning Next</span></div>
+          <p data-i18n="home.next">
+            Next up: Learning javascript properly and 3D Design software like AutoCAD and FreeCAD
+          </p>
+        </section>
+      </div>
+
+      <!-- FOOTER PANEL: dotfiles link + "Built with" -->
+      <footer class="site-footer">
+        <hr is-="separator" />
+        <!-- Quick contact line. Swap the email, tel: number and wa.me number
+             (wa.me needs the full international number with NO + or spaces). -->
+        <p>
+          <span data-i18n="footer.reach">Reach me</span>:
+          <a href="mailto:greetings.forge@proton.me"><span class="nf">&#xf0e0;</span>&nbsp;Email</a>
+          &nbsp;·&nbsp;
+          <a href="tel:+9647712488377"><span class="nf">&#xf095;</span>&nbsp;+964&nbsp;771&nbsp;248&nbsp;8377</a>
+          &nbsp;·&nbsp;
+          <a href="https://wa.me/9647712488377" target="_blank" rel="noopener"><span class="nf">&#xf232;</span>&nbsp;WhatsApp</a>
+        </p>
+        <p>
+          <span class="nf">&#xf120;</span>
+          <a href="https://github.com/potatoforge120/dotfile" target="_blank" rel="noopener" data-i18n="home.dotfiles">
+            My dotfiles &amp; 
+          </a>
+        </p>
+        <p>
+          <span data-i18n="home.footTools">Built with</span>:
+          <span is-="badge" variant-="foreground2">WebTUI</span>
+          <span is-="badge" variant-="foreground2">HTML</span>
+          <span is-="badge" variant-="foreground2">CSS</span>
+          <span is-="badge" variant-="foreground2">JS</span>
+          <!-- <span is-="badge" variant-="foreground2">Space&nbsp;Mono</span> -->
+          <!-- <span is-="badge" variant-="foreground2">Nerd&nbsp;Fonts</span> -->
+        </p>
+      </footer>
+
+    </main>
+  </div>
+</body>
+</html>

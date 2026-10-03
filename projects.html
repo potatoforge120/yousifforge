@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<!--
+  =============================================================================
+  projects.html — PROJECTS PAGE
+  -----------------------------------------------------------------------------
+  Same shell as index.html (see that file for the full explanation). Only the
+  active nav link (aria-current on "Projects") and the .main content differ.
+
+  Each project is a WebTUI box panel with: title, tech badges, description,
+  a "Source" link and a "Docs" button that opens a native <dialog> modal
+  (wired generically in js/main.js via data-open / data-close).
+  =============================================================================
+-->
+<html lang="en" dir="ltr" data-webtui-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Forge — Projects</title>
+  <link rel="stylesheet" href="vendor/full.css" />
+  <link rel="stylesheet" href="vendor/theme-nord.css" />
+  <link rel="stylesheet" href="vendor/theme-catppuccin.css" />
+  <link rel="stylesheet" href="vendor/plugin-nf.css" />
+  <link rel="stylesheet" href="css/style.css" />
+  <script src="js/main.js" defer></script>
+</head>
+<body>
+
+  <button id="nav-toggle" class="nav-toggle" is-="button" box-="square" aria-label="Toggle navigation">
+    <span class="nf">&#xf0c9;</span><span class="nav-toggle__label" data-i18n="ui.menu">Menu</span>
+  </button>
+
+  <div class="app">
+
+    <!-- ===== SIDEBAR (identical to index.html; "Projects" is active) ===== -->
+   <aside class="sidebar">
+      <div class="brand">
+        <span class="accent">&#x276F;</span> yousif<span class="accent">@</span>forge
+      </div>
+
+      <nav aria-label="Primary">
+        <div class="tree__group">
+          <div class="tree__folder">
+            <span>&#x25BC;</span><span class="nf">&#xf07c;</span><span data-i18n="nav.pages">pages</span>
+          </div>
+          <ul class="tree">
+            <li class="tree__item"><span class="tree__branch">├ </span>
+              <a class="tree__link" href="index.html"><span class="nf">&#xf015;</span><span data-i18n="nav.home">Home</span></a></li>
+            <li class="tree__item"><span class="tree__branch">├ </span>
+              <a class="tree__link" href="projects.html" aria-current="page"><span class="nf">&#xf121;</span><span data-i18n="nav.projects">Projects</span></a></li>
+            <li class="tree__item"><span class="tree__branch">├ </span>
+              <a class="tree__link" href="blog.html"><span class="nf">&#xf02d;</span><span data-i18n="nav.blog">Blog</span></a></li>
+            <li class="tree__item"><span class="tree__branch">└ </span>
+              <a class="tree__link" href="contact.html" ><span class="nf">&#xf0e0;</span><span data-i18n="nav.contact">Contact</span></a></li>
+          </ul>
+        </div>
+
+        <div class="tree__group">
+          <div class="tree__folder">
+            <span>&#x25BC;</span><span class="nf">&#xf0c1;</span><span data-i18n="nav.connect">connect</span>
+          </div>
+          <ul class="tree">
+            <li class="tree__item"><span class="tree__branch">├ </span>
+              <a class="tree__link" href="https://github.com/potatoforge120" target="_blank" rel="noopener"><span class="nf">&#xf09b;</span>GitHub</a></li>
+            <li class="tree__item"><span class="tree__branch">├ </span>
+              <a class="tree__link" href="https://discord.com/users/791784297321332747" target="_blank" rel="noopener"><span class="nf">&#xf066f;</span>Discord</a></li>
+            <li class="tree__item"><span class="tree__branch">└ </span>
+              <a class="tree__link" href="mailto:greetings.forge@proton.me"><span class="nf">&#xf0e0;</span>Email</a></li>
+          </ul>
+        </div>
+      </nav>
+
+      <div class="toolbar">
+        <div class="theme-switch">
+          <button id="theme-trigger" is-="button" box-="square" aria-haspopup="true">
+            <span class="nf">&#xf0710;</span><span data-i18n="ui.theme">Theme</span></button>
+          <div class="theme-switch__menu" role="menu">
+            <button data-theme="catppuccin-mocha">Catppuccin Mocha</button>
+            <button data-theme="nord">Nord</button>
+            <button data-theme="dark">Dark</button>
+            <button data-theme="light">Light</button>
+          </div>
+        </div>
+        <!-- LANGUAGE SWITCH — a WebTUI switch (is-="switch"): OFF = English, ON = Arabic.
+             Driven by js/main.js (change event + localStorage). -->
+        <label class="lang-switch" title="Switch language" aria-label="Switch language">
+          <span class="nf">&#xf05ca;</span>
+          <span class="lang-switch__side lang-switch__side--en">EN</span>
+          <input type="checkbox" id="lang-toggle" is-="switch" />
+          <span class="lang-switch__side lang-switch__side--ar">عربي</span>
+        </label>
+      </div>
+
+      
+    </aside>
+
+
+    <!-- ===== MAIN CONTENT — PROJECTS ===== -->
+    <main class="main">
+      <header class="page-header">
+        <p style="color:var(--foreground2)"><span data-i18n="proj.crumb">~/projects</span></p>
+        <h1 data-i18n="proj.title">Projects</h1>
+        <p data-i18n="proj.intro">A selection of things I've built. Source and docs linked on each card.</p>
+      </header>
+
+      <!-- PROJECT GRID: each card is a WebTUI panel. To add a project, duplicate
+           a block and give its Docs button a unique data-open="#id" matching a
+           <dialog id="id"> below. -->
+      <div class="grid-2">
+
+        <!-- pcalc -->
+        <article box-="square" shear-="top" class="stack">
+          <div class="box-title"><span class="nf">&#xf120;</span>pcalc</div>
+          <div class="cluster">
+            <span is-="badge" variant-="hl-blue">C++</span>
+            <span is-="badge" variant-="foreground2">CLI</span>
+          </div>
+          <p data-i18n="proj.pcalcDesc">A fast C++ command-line calculator utility with an expression parser.</p>
+          <div class="card-actions">
+            <a is-="button" box-="round" href="https://github.com/potatoforge120/pcalc" target="_blank" rel="noopener">
+              <span class="nf">&#xf121;</span><span data-i18n="proj.source">Source</span></a>
+            <button is-="button" box-="round" variant-="accent" data-open="#doc-pcalc">
+              <span class="nf">&#xf02d;</span><span data-i18n="proj.docs">Docs</span></button>
+          </div>
+        </article>
+
+        <!-- Potatoly
+        <article box-="square" shear-="top" class="stack">
+          <div class="box-title"><span class="nf">&#xf120;</span>Potatoly</div>
+          <div class="cluster">
+            <span is-="badge" variant-="hl-green">C++</span>
+            <span is-="badge" variant-="foreground2">ASCII</span>
+            <span is-="badge" variant-="foreground2">TUI</span>
+          </div>
+          <p data-i18n="proj.potatoDesc">A terminal pet written in C++ that renders cute ASCII animations while you work.</p>
+          <div class="card-actions">
+            <a is-="button" box-="round" href="https://github.com/potatoforge120" target="_blank" rel="noopener">
+              <span class="nf">&#xf121;</span><span data-i18n="proj.source">Source</span></a>
+            <button is-="button" box-="round" variant-="accent" data-open="#doc-potatoly">
+              <span class="nf">&#xf02d;</span><span data-i18n="proj.docs">Docs</span></button>
+          </div>
+        </article> -->
+
+        <!-- p-Root 
+        <article box-="square" shear-="top" class="stack">
+          <div class="box-title"><span class="nf">&#xf0ac;</span>p-Root</div>
+          <div class="cluster">
+            <span is-="badge" variant-="hl-orange">HTML / CSS</span>
+            <span is-="badge" variant-="foreground2">Static</span>
+          </div>
+          <p data-i18n="proj.prootDesc">A static personal website — minimal, fast, no framework required.</p>
+          <div class="card-actions">
+            <a is-="button" box-="round" href="https://github.com/potatoforge120" target="_blank" rel="noopener">
+              <span class="nf">&#xf121;</span><span data-i18n="proj.source">Source</span></a>
+            <button is-="button" box-="round" variant-="accent" data-open="#doc-proot">
+              <span class="nf">&#xf02d;</span><span data-i18n="proj.docs">Docs</span></button>
+          </div>
+        </article> -->
+
+        <!-- ESP32 Desk Clock -->
+        <article box-="square" shear-="top" class="stack">
+          <div class="box-title"><span class="nf">&#xf017;</span>ESP32 Desk Clock</div>
+          <div class="cluster">
+            <span is-="badge" variant-="hl-red">ESP32</span>
+            <span is-="badge" variant-="foreground2">C++</span>
+            <span is-="badge" variant-="foreground2">WiFI</span>
+            
+          </div>
+          <p data-i18n="proj.clockDesc">An ESP32 dot-matrix desk clock featuring Bluetooth audio playback and more (Coming soon...).</p>
+          <div class="card-actions">
+            <a is-="button" box-="round" href="https://github.com/potatoforge120" target="_blank" rel="noopener">
+              <span class="nf">&#xf121;</span><span data-i18n="proj.source">Source</span></a>
+            <button is-="button" box-="round" variant-="accent" data-open="#doc-clock">
+              <span class="nf">&#xf02d;</span><span data-i18n="proj.docs">Docs</span></button>
+          </div>
+        </article>
+
+      </div>
+
+      <!-- FOOTER with quick contact links (same as the other pages). Swap the
+           email, tel: number and wa.me number for the real ones. -->
+      <footer class="site-footer">
+        <hr is-="separator" />
+        <p>
+          <span data-i18n="footer.reach">Reach me</span>:
+          <a href="mailto:greetings.forge@proton.me"><span class="nf">&#xf0e0;</span>&nbsp;Email</a>
+          &nbsp;·&nbsp;
+          <a href="tel:+9647712488377"><span class="nf">&#xf095;</span>&nbsp;+964&nbsp;771&nbsp;248&nbsp;8377</a>
+          &nbsp;·&nbsp;
+          <a href="https://wa.me/9647712488377" target="_blank" rel="noopener"><span class="nf">&#xf232;</span>&nbsp;WhatsApp</a>
+        </p>
+      </footer>
+    </main>
+  </div>
+
+
+  <!-- ===================================================================== -->
+  <!-- DOCUMENTATION MODALS (native <dialog>; opened by the Docs buttons)     -->
+  <!-- ===================================================================== -->
+  <dialog id="doc-pcalc">
+    <div box-="double" class="stack" style="padding:1rem">
+      <div class="dialog__head">
+        <h2><span class="nf">&#xf120;</span>pcalc — docs</h2>
+        <button is-="button" size-="small" data-close aria-label="Close">✕</button>
+      </div>
+      <hr is-="separator" />
+      <p>pcalc evaluates arithmetic expressions straight from the shell.</p>
+      <pre is-="pre">$ pcalc "3 * (4 + 2) / 2"
+9</pre>
+      <p>Supports + - * / %, parentheses, and floating point. Build with CMake:</p>
+      <pre is-="pre">cmake -B build &amp;&amp; cmake --build build</pre>
+    </div>
+  </dialog>
+
+  <dialog id="doc-potatoly">
+    <div box-="double" class="stack" style="padding:1rem">
+      <div class="dialog__head">
+        <h2><span class="nf">&#xf120;</span>Potatoly — docs</h2>
+        <button is-="button" size-="small" data-close aria-label="Close">✕</button>
+      </div>
+      <hr is-="separator" />
+      <p>A tiny ASCII companion that idles in a terminal pane and reacts over time.</p>
+      <pre is-="pre">$ potatoly --spud
+  ( ^_^ )   feed me with `potatoly feed`</pre>
+      <p>Runs anywhere with a standard C++17 toolchain.</p>
+    </div>
+  </dialog>
+
+  <dialog id="doc-proot">
+    <div box-="double" class="stack" style="padding:1rem">
+      <div class="dialog__head">
+        <h2><span class="nf">&#xf0ac;</span>p-Root — docs</h2>
+        <button is-="button" size-="small" data-close aria-label="Close">✕</button>
+      </div>
+      <hr is-="separator" />
+      <p>A no-build static site. Drop the files on any static host and you're done.</p>
+      <pre is-="pre">python -m http.server   # local preview</pre>
+    </div>
+  </dialog>
+
+  <dialog id="doc-clock">
+    <div box-="double" class="stack" style="padding:1rem">
+      <div class="dialog__head">
+        <h2><span class="nf">&#xf017;</span>ESP32 Desk Clock — docs</h2>
+        <button is-="button" size-="small" data-close aria-label="Close">✕</button>
+      </div>
+      <hr is-="separator" />
+      <p>Drives a MAX7219 dot-matrix display and streams audio over A2DP Bluetooth.</p>
+      <pre is-="pre">Board:   ESP32-WROOM-32
+Display: 4x MAX7219 8x8
+Audio:   A2DP sink -> I2S DAC</pre>
+      <p>Flash with the Arduino/PlatformIO toolchain.</p>
+    </div>
+  </dialog>
+
+</body>
+</html>

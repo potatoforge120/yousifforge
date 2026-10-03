@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<!--
+  =============================================================================
+  blog.html — BLOG PAGE
+  -----------------------------------------------------------------------------
+  Same shell as index.html. A terminal-styled feed of posts; each post is a
+  WebTUI box panel with a date, title and excerpt. Duplicate an <article> block
+  to add a post (add its i18n keys in js/main.js if you translate it).
+  =============================================================================
+-->
+<html lang="en" dir="ltr" data-webtui-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Forge — Blog</title>
+  <link rel="stylesheet" href="vendor/full.css" />
+  <link rel="stylesheet" href="vendor/theme-nord.css" />
+  <link rel="stylesheet" href="vendor/theme-catppuccin.css" />
+  <link rel="stylesheet" href="vendor/plugin-nf.css" />
+  <link rel="stylesheet" href="css/style.css" />
+  <!-- marked = local Markdown->HTML parser (vendored, no CDN at runtime). Loaded
+       ONLY on the blog page. Must come before main.js so it's ready when the
+       blog feed renders. -->
+  <script src="vendor/marked.min.js" defer></script>
+  <script src="js/main.js" defer></script>
+</head>
+<body>
+
+  <button id="nav-toggle" class="nav-toggle" is-="button" box-="square" aria-label="Toggle navigation">
+    <span class="nf">&#xf0c9;</span><span class="nav-toggle__label" data-i18n="ui.menu">Menu</span>
+  </button>
+    
+  <div class="app"> 
+
+  
+    <!-- ===== SIDEBAR (identical to index.html; "Blog" is active) ===== -->
+   <aside class="sidebar">
+      <div class="brand">
+        <span class="accent">&#x276F;</span> yousif<span class="accent">@</span>forge
+      </div>
+
+      <nav aria-label="Primary">
+        <div class="tree__group">
+          <div class="tree__folder">
+            <span>&#x25BC;</span><span class="nf">&#xf07c;</span><span data-i18n="nav.pages">pages</span>
+          </div>
+          <ul class="tree">
+            <li class="tree__item"><span class="tree__branch">├ </span>
+              <a class="tree__link" href="index.html"><span class="nf">&#xf015;</span><span data-i18n="nav.home">Home</span></a></li>
+            <li class="tree__item"><span class="tree__branch">├ </span>
+              <a class="tree__link" href="projects.html"><span class="nf">&#xf121;</span><span data-i18n="nav.projects">Projects</span></a></li>
+            <li class="tree__item"><span class="tree__branch">├ </span>
+              <a class="tree__link" href="blog.html" aria-current="page"><span class="nf">&#xf02d;</span><span data-i18n="nav.blog">Blog</span></a></li>
+            <li class="tree__item"><span class="tree__branch">└ </span>
+              <a class="tree__link" href="contact.html" ><span class="nf">&#xf0e0;</span><span data-i18n="nav.contact">Contact</span></a></li>
+          </ul>
+        </div>
+
+        <div class="tree__group">
+          <div class="tree__folder">
+            <span>&#x25BC;</span><span class="nf">&#xf0c1;</span><span data-i18n="nav.connect">connect</span>
+          </div>
+          <ul class="tree">
+            <li class="tree__item"><span class="tree__branch">├ </span>
+              <a class="tree__link" href="https://github.com/potatoforge120" target="_blank" rel="noopener"><span class="nf">&#xf09b;</span>GitHub</a></li>
+            <li class="tree__item"><span class="tree__branch">├ </span>
+              <a class="tree__link" href="https://discord.com/users/791784297321332747" target="_blank" rel="noopener"><span class="nf">&#xf066f;</span>Discord</a></li>
+            <li class="tree__item"><span class="tree__branch">└ </span>
+              <a class="tree__link" href="mailto:greetings.forge@proton.me"><span class="nf">&#xf0e0;</span>Email</a></li>
+          </ul>
+        </div>
+      </nav>
+
+      <div class="toolbar">
+        <div class="theme-switch">
+          <button id="theme-trigger" is-="button" box-="square" aria-haspopup="true">
+            <span class="nf">&#xf0710;</span><span data-i18n="ui.theme">Theme</span></button>
+          <div class="theme-switch__menu" role="menu">
+            <button data-theme="catppuccin-mocha">Catppuccin Mocha</button>
+            <button data-theme="nord">Nord</button>
+            <button data-theme="dark">Dark</button>
+            <button data-theme="light">Light</button>
+          </div>
+        </div>
+        <!-- LANGUAGE SWITCH — a WebTUI switch (is-="switch"): OFF = English, ON = Arabic.
+             Driven by js/main.js (change event + localStorage). -->
+        <label class="lang-switch" title="Switch language" aria-label="Switch language">
+          <span class="nf">&#xf05ca;</span>
+          <span class="lang-switch__side lang-switch__side--en">EN</span>
+          <input type="checkbox" id="lang-toggle" is-="switch" />
+          <span class="lang-switch__side lang-switch__side--ar">عربي</span>
+        </label>
+      </div>
+
+      
+    </aside>
+
+
+
+
+    <!-- ===== MAIN CONTENT — BLOG ===== -->
+    <main class="main">
+      <header class="page-header">
+        <p style="color:var(--foreground2)"><span data-i18n="blog.crumb">~/blog</span></p>
+        <h1 data-i18n="blog.title">Blog</h1>
+        <p data-i18n="blog.intro">Notes on code, hardware and my Linux setup. Newest first.</p>
+      </header>
+
+      <!-- ======================================================================
+           HOW TO ADD / EDIT A BLOG POST  (Markdown workflow)
+           ----------------------------------------------------------------------
+           Posts are now MARKDOWN files in the /blog folder — no HTML editing.
+
+           TO ADD A POST:
+             1. Create  blog/YYYY-MM-DD-my-slug.md  with front-matter on top:
+
+                    ---
+                    title: My post title
+                    date: 2026-01-31
+                    excerpt: One-line teaser shown in the feed.
+                    ---
+
+                    Your **Markdown** body here: ## headings, lists, `code`,
+                    > quotes, [links](https://example.com) — all supported.
+
+             2. Add it to  blog/posts.json  (newest FIRST):
+                    { "file": "2026-01-31-my-slug.md" }
+
+           OPTIONAL BILINGUAL POST:
+             Make TWO files, e.g.  my-slug.en.md  and  my-slug.ar.md , then list
+             them together so the right one loads with the language toggle:
+                    { "en": "my-slug.en.md", "ar": "my-slug.ar.md" }
+             Single-language posts just use { "file": "…" } and show as-is in
+             both EN and AR. No need to translate unless you want to.
+
+           The feed below is rendered by js/main.js (initBlog): it reads
+           posts.json, fetches each file, parses front-matter + Markdown, and
+           builds the cards with a working "Read more" (expands in place).
+
+           NOTE: this needs the site served over http:// (your
+           `python3 -m http.server 8000`). Opening blog.html as a file:// cannot
+           fetch the .md files.
+           ====================================================================== -->
+
+      <!-- Posts get injected here. The message shows only if JS is off or the
+           posts fail to load (e.g. opened as a bare file:// with no server). -->
+      <div id="blog-feed" class="stack">
+        <noscript><p>Enable JavaScript to read the blog posts.</p></noscript>
+      </div>
+
+      <!-- FOOTER with quick contact links (same idea as the home page footer). -->
+      <footer class="site-footer">
+        <hr is-="separator" />
+        <p>
+          <span data-i18n="footer.reach">Reach me</span>:
+          <a href="mailto:greetings.forge@proton.me"><span class="nf">&#xf0e0;</span>&nbsp;Email</a>
+          &nbsp;·&nbsp;
+          <a href="tel:+9647712488377"><span class="nf">&#xf095;</span>&nbsp;+964&nbsp;771&nbsp;248&nbsp;8377</a>
+          &nbsp;·&nbsp;
+          <a href="https://wa.me/9647712488377" target="_blank" rel="noopener"><span class="nf">&#xf232;</span>&nbsp;WhatsApp</a>
+        </p>
+      </footer>
+    </main>
+  </div>
+</body>
+</html>
