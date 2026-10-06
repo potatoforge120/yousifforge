@@ -9,6 +9,10 @@
   Each project is a WebTUI box panel with: title, tech badges, description,
   a "Source" link and a "Docs" button that opens a native <dialog> modal
   (wired generically in js/main.js via data-open / data-close).
+
+  NOTE: The ESP32 Desk Clock and the Designs section are currently marked
+  "Coming soon". New i18n keys used: proj.soon, proj.designsSoon
+  (add them to the translations in js/main.js for Arabic).
   =============================================================================
 -->
 <html lang="en" dir="ltr" data-webtui-theme="dark">
@@ -103,7 +107,7 @@
       </header>
 
       <!-- Sub-heading for the existing software grid, now that there are two
-           project categories on this page (software + engineering below). -->
+           project categories on this page (software + designs below). -->
       <h2 data-i18n="proj.swTitle" style="margin-bottom:1rem">Software Projects</h2>
 
       <!-- PROJECT GRID: each card is a WebTUI panel. To add a project, duplicate
@@ -160,100 +164,39 @@
           </div>
         </article> -->
 
-        <!-- ESP32 Desk Clock -->
+        <!-- ESP32 Desk Clock — COMING SOON (no Source/Docs buttons yet) -->
         <article box-="square" shear-="top" class="stack">
           <div class="box-title"><span class="nf">&#xf017;</span>ESP32 Desk Clock</div>
           <div class="cluster">
             <span is-="badge" variant-="hl-red">ESP32</span>
             <span is-="badge" variant-="foreground2">C++</span>
-            <span is-="badge" variant-="foreground2">WiFI</span>
-            
+            <span is-="badge" variant-="foreground2">WiFi</span>
+            <span is-="badge" variant-="accent" data-i18n="proj.soon">Coming soon</span>
           </div>
-          <p data-i18n="proj.clockDesc">An ESP32 dot-matrix desk clock featuring Bluetooth audio playback and more (Coming soon...).</p>
+          <p data-i18n="proj.clockDesc">An ESP32 dot-matrix desk clock featuring Bluetooth audio playback and more.</p>
           <div class="card-actions">
-            <a is-="button" box-="round" href="https://github.com/potatoforge120" target="_blank" rel="noopener">
-              <span class="nf">&#xf121;</span><span data-i18n="proj.source">Source</span></a>
-            <button is-="button" box-="round" variant-="accent" data-open="#doc-clock">
-              <span class="nf">&#xf02d;</span><span data-i18n="proj.docs">Docs</span></button>
+            <button is-="button" box-="round" disabled>
+              <span class="nf">&#xf017;</span><span data-i18n="proj.soon">Coming soon</span></button>
           </div>
         </article>
 
       </div>
 
       <!-- =====================================================================
-           ENGINEERING PROJECTS — SolidWorks / mechanical / embedded showcase.
+           DESIGNS — COMING SOON
            -----------------------------------------------------------------------
-           Each card = description + badges + a link, followed by an <img> image
-           frame (CAD render / photo / manufacturing shot).
-
-           ADDING YOUR OWN IMAGES: drop the file at the EXACT path written in the
-           <img src="…">  below (e.g. images/projects/robotic-arm.jpg) — just
-           create the images/projects/ folder next to index.html and put the
-           file there with that exact name. Until the file exists, the frame
-           shows a dashed placeholder with the expected path so it's obvious
-           where each image goes. No other code changes needed.
+           The old design cards (names, badges, images) were removed on purpose.
+           When you're ready, replace the "Coming soon" article below with your
+           new design cards (inside a <div class="grid-2">).
            ===================================================================== -->
       <section class="stack eng-projects">
         <h2 style="margin-bottom:.25rem">
           <span class="nf">&#xf013;</span><span data-i18n="proj.engTitle">Designs</span>
         </h2>
-        <p data-i18n="proj.engIntro">A showcase of SolidWorks work and embedded systems.</p>
-
-        <div class="grid-2">
-
-          <!-- 4-DOF Robotic Arm -->
-          <article box-="square" shear-="top" class="stack">
-            <div class="box-title"><span class="nf">&#xf013;</span><span data-i18n="proj.armTitle">Smart Robotic Arm (4-DOF)</span></div>
-            <p data-i18n="proj.armDesc">Full mechanical design and manufacturing in SolidWorks using 3D printing, with ESP32-based firmware for wireless control.</p>
-            <div class="cluster">
-              <span is-="badge" variant-="hl-blue"><span class="nf">&#xf013;</span>SolidWorks</span>
-              <span is-="badge" variant-="hl-orange"><span class="nf">&#xf013;</span>3D Printing</span>
-              <span is-="badge" variant-="hl-red"><span class="nf">&#xf013;</span>ESP32</span>
-            </div>
-            <div class="card-actions">
-              <a is-="button" box-="round" href="#" data-i18n="proj.view3d">[ View 3D Design ]</a>
-            </div>
-            <!-- IMAGE PLACEHOLDER — put your render at images/projects/robotic-arm.jpg -->
-            <figure class="eng-figure eng-figure--cyan">
-              <img src="images/projects/robotic-arm.jpg"
-                   alt="4-DOF robotic arm — SolidWorks render"
-                   loading="lazy"
-                   onerror="this.style.display='none'; this.closest('figure').classList.add('eng-figure--empty')" />
-              <figcaption class="eng-figure__hint">
-                <span class="nf">&#xf03e;</span>
-                <span data-i18n="proj.imgHint">Drop the image here:</span>
-                <code>images/projects/robotic-arm.jpg</code>
-              </figcaption>
-            </figure>
-          </article>
-
-          <!-- IoT Tracker Enclosure -->
-          <article box-="square" shear-="top" class="stack">
-            <div class="box-title"><span class="nf">&#xf013;</span><span data-i18n="proj.iotTitle">Smart Tracker Enclosure (IoT)</span></div>
-            <p data-i18n="proj.iotDesc">Engineering design for a custom outer enclosure protecting the electronics, accounting for ventilation and button clearance.</p>
-            <div class="cluster">
-              <span is-="badge" variant-="hl-blue"><span class="nf">&#xf013;</span>SolidWorks</span>
-              <span is-="badge" variant-="hl-cyan"><span class="nf">&#xf013;</span>IoT</span>
-              <span is-="badge" variant-="hl-purple"><span class="nf">&#xf013;</span>C++</span>
-            </div>
-            <div class="card-actions">
-              <a is-="button" box-="round" href="#" data-i18n="proj.readProcess">[ Read About the Manufacturing Process ]</a>
-            </div>
-            <!-- IMAGE PLACEHOLDER — put your render at images/projects/iot-tracker.jpg -->
-            <figure class="eng-figure eng-figure--orange">
-              <img src="images/projects/iot-tracker.jpg"
-                   alt="IoT tracker enclosure — SolidWorks render"
-                   loading="lazy"
-                   onerror="this.style.display='none'; this.closest('figure').classList.add('eng-figure--empty')" />
-              <figcaption class="eng-figure__hint">
-                <span class="nf">&#xf03e;</span>
-                <span data-i18n="proj.imgHint">Drop the image here:</span>
-                <code>images/projects/iot-tracker.jpg</code>
-              </figcaption>
-            </figure>
-          </article>
-
-        </div>
+        <article box-="square" shear-="top" class="stack">
+          <div class="box-title"><span class="nf">&#xf017;</span><span data-i18n="proj.soon">Coming soon</span></div>
+          <p data-i18n="proj.designsSoon">New designs will be added here soon.</p>
+        </article>
       </section>
 
       <!-- FOOTER with quick contact links (same as the other pages). Swap the
@@ -291,45 +234,7 @@
     </div>
   </dialog>
 
-  <dialog id="doc-potatoly">
-    <div box-="double" class="stack" style="padding:1rem">
-      <div class="dialog__head">
-        <h2><span class="nf">&#xf120;</span>Potatoly — docs</h2>
-        <button is-="button" size-="small" data-close aria-label="Close">✕</button>
-      </div>
-      <hr is-="separator" />
-      <p>A tiny ASCII companion that idles in a terminal pane and reacts over time.</p>
-      <pre is-="pre">$ potatoly --spud
-  ( ^_^ )   feed me with `potatoly feed`</pre>
-      <p>Runs anywhere with a standard C++17 toolchain.</p>
-    </div>
-  </dialog>
-
-  <dialog id="doc-proot">
-    <div box-="double" class="stack" style="padding:1rem">
-      <div class="dialog__head">
-        <h2><span class="nf">&#xf0ac;</span>p-Root — docs</h2>
-        <button is-="button" size-="small" data-close aria-label="Close">✕</button>
-      </div>
-      <hr is-="separator" />
-      <p>A no-build static site. Drop the files on any static host and you're done.</p>
-      <pre is-="pre">python -m http.server   # local preview</pre>
-    </div>
-  </dialog>
-
-  <dialog id="doc-clock">
-    <div box-="double" class="stack" style="padding:1rem">
-      <div class="dialog__head">
-        <h2><span class="nf">&#xf017;</span>ESP32 Desk Clock — docs</h2>
-        <button is-="button" size-="small" data-close aria-label="Close">✕</button>
-      </div>
-      <hr is-="separator" />
-      <p>Drives a MAX7219 dot-matrix display and streams audio over A2DP Bluetooth.</p>
-      <pre is-="pre">Board:   ESP32-WROOM-32
-Display: 4x MAX7219 8x8
-Audio:   A2DP sink -> I2S DAC</pre>
-      <p>Flash with the Arduino/PlatformIO toolchain.</p>
-    </div>
-  </dialog>
+  <!-- doc-clock dialog removed: the ESP32 Desk Clock is "Coming soon" for now. -->
 
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script></body>
+</html>
